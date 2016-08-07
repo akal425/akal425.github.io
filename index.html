@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Akal425 - Abhijeet Kale</title>
+
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css">
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+</head>
+<body>
+<table style="text-align: left; width: 1300px; height: 32px; color: rgb(102, 102, 204);" border="0" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td><big style="font-family: Calibri;"><big><span style="font-weight: bold;">Geog 771</span></big></big><br style="font-weight: bold;">
+<big style="font-family: Calibri;"><big><span style="font-weight: bold;">2016 | Semester 2 </span><br style="font-weight: bold;">
+<span style="font-weight: bold; font-style: italic;">The
+University of Auckland</span></big></big></td>
+</tr>
+</tbody>
+</table>
+<br>
+<table style="text-align: left; width: 1300px; height: 52px;" border="0" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;">Home</span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;">Lab 2</span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;">Lab 3</span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;">Lab 4</span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;">Lab 5</span></td>
+</tr>
+</tbody>
+</table>
+<br><big><span style="font-family: Calibri;">This is Abhijeet Kale, and
+I am going to use this simple website to post my web map outputs for
+Geog 771 done at The University of Auckland. </span><br style="font-family: Calibri;"><span style="font-family: Calibri;">Here is the example of a very basic web map that I made showing my home back in India. (Pune City) </span></big><br><br>
+<table style="text-align: left; width: 1300px; height: 609px;" border="0" cellpadding="2" cellspacing="2">
+<tbody>
+<tr>
+<td>
+<div style="text-align: center;"></div>
+<div id="mapid" style="width: 1300px; height: 609px; text-align: center;"></div>
+<script>
+var mymap = L.map('mapid').setView([18.577758333333332, 73.89337222222223], 14);
+function style(feature) {
+if ("TingreNagar" == feature.properties.name) {
+return {
+weight: 2,
+opacity: 1,
+color: 'white',
+dashArray: '3',
+fillOpacity: 0.7,
+fillColor: '#FFA000'
+};
+} else {
+return {
+weight: 2,
+opacity: 1,
+color: 'white',
+dashArray: '3',
+fillOpacity: 0.7,
+fillColor: '#000'
+};
+}
+}
+L.tileLayer('http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+maxZoom: 18,
+attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+id: 'mapbox.streets'
+}).addTo(mymap);
+</script>
+<script>
+var TingreNagar =
+{
+"type": "Feature",
+"properties": {
+"name": "TingreNagar"
+}, "geometry": {
+"type": "Polygon",
+"coordinates": [
+[
+[
+73.89045938587947,
+18.58015833699624,
+0
+],
+[
+73.89111459755574,
+18.57430162749389,
+0
+],
+[
+73.89616313158979,
+18.57484702042427,
+0
+],
+[
+73.89653744289872,
+18.57692810055785,
+0
+],
+[
+73.8990675029296,
+18.57657966702081,
+0
+],
+[
+73.89916333795874,
+18.57707690224859,
+0
+],
+[
+73.8998748948592,
+18.57725685872884,
+0
+],
+[
+73.89940242752833,
+18.5796703414906,
+0
+],
+[
+73.8975639789931,
+18.57984550905914,
+0
+],
+[
+73.89798764811566,
+18.58311007670698,
+0
+],
+[
+73.89690321126707,
+18.58306054089317,
+0
+],
+[
+73.8960456620346,
+18.58313087841284,
+0
+],
+[
+73.89534077757689,
+18.5831377372677,
+0
+],
+[
+73.89045938587947,
+18.58015833699624,
+0
+]
+]
+]
+}
+};
+L.marker([18.577758333333332, 73.89337222222223]).addTo(mymap).bindPopup(" Tingre Nagar, My Home! :) ").openPopup();
+L.geoJson(TingreNagar, {
+style: function(feature) {
+switch (feature.properties.name) {case 'TingreNagar': return {color: "#40ff00", fillOpacity : "0.7", weight: "5"}; }
+}
+}).addTo(mymap).bindPopup("Tingre Nagar, My Place").Openpopup();
+</script></td>
+</tr>
+</tbody>
+</table>
+<br>
+<br>
+<br>
+</body></html>
