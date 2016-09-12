@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Akal425 - Abhijeet Kale</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>Akal425 - Great Walk of NZ</title>
 
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css">
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v0.18.0/mapbox-gl.js"></script>
 </head>
 <body>
 <table style="text-align: left; width: 1300px; height: 32px; color: rgb(102, 102, 204);" border="0" cellpadding="2" cellspacing="2">
@@ -20,24 +20,206 @@ University of Auckland</span></big></big></td>
 <table style="text-align: left; width: 1300px; height: 52px;" border="0" cellpadding="2" cellspacing="2">
 <tbody>
 <tr>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="../index.html">Home</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="./pages/lab2.html">Lab 2</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="lab3.html">Lab 3</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./pages/lab4.html">Lab 4</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./pages/lab5.html">Lab 5</span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="../index.html">Home</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="./pages/lab2.html">Lab 2</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="lab3.html">Lab 3</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./pages/lab4.html">Lab 4</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./pages/lab5.html">Lab 5</a></span></td>
 </tr>
 </tbody>
 </table>
-<br><big><span style="font-family: Calibri;">This is Abhijeet Kale, and
-I am going to use this simple website to post my web map outputs for
-Geog 771 done at The University of Auckland. </span><br style="font-family: Calibri;"><span style="font-family: Calibri;">Here is the example of a very basic web map that I made showing my home back in India. (Pune City) </span></big><br><br>
+<br>
+<big><span style="font-family: Calibri;">This is
+Abhijeet Kale, and in our 3rd lab session we learned to use Mapbox to
+display the Great Walk tracks of New Zealand. </span><span style="font-family: Calibri;"></span></big><br>
+<br>
 <table style="text-align: left; width: 1300px; height: 609px;" border="0" cellpadding="2" cellspacing="2">
 <tbody>
 <tr>
 <td>
-<br>
-<p style="height: 8px; font-family: Tahoma;">This page is under construction.</p>
-<p style="height: 8px;"></p>
+<div id="mapid" style="width: 650px; height: 609px;"></div>
+<script> mapboxgl.accessToken = 'pk.eyJ1IjoiYWthbDQyNSIsImEiOiJjaXJ3cng1NjIwMDBwMnRudzA1MmRmeTA1In0.eO1LQAgYociyAYeMszWpTA';
+var mapid = new mapboxgl.Map({
+container: "mapid",
+style: "mapbox://styles/akal425/cirww3hvx004cg4npuegh5toy",
+center: [173.66,-41.29], zoom: 4.3
+});
+</script>
+</td>
+<td>
+<div id="mapidpart2" style="width: 650px; height: 609px;"></div>
+<script>
+mapboxgl.accessToken = "pk.eyJ1IjoiYWthbDQyNSIsImEiOiJjaXJ3cng1NjIwMDBwMnRudzA1MmRmeTA1In0.eO1LQAgYociyAYeMszWpTA";
+var mapidpart2 = new mapboxgl.Map({
+container: 'mapidpart2',
+style: "mapbox://styles/akal425/cis6yavkh000rgkm6ep9ay6ze",
+center: [173.151528, -41.049010],
+zoom: 4.3
+});
+mapidpart2.on('load', function () {
+mapidpart2.addSource('tracks', {
+type: 'vector',
+url: "mapbox://akal425.4cr1446f"
+});
+mapidpart2.addLayer({
+'id': 'tracks',
+'type': 'line',
+'source': 'tracks',
+'source-layer': "greatwalks-ao8gqx",
+'layout': {
+'visibility': 'visible',
+'line-join': 'round',
+'line-cap': 'round'
+},
+'paint': {
+'line-color': '#ff33cc',
+'line-width': 2
+}
+});
+});
+mapidpart2.on('load', function () {
+mapidpart2.addSource("points", {
+"type": "geojson",
+"data": {
+"type": "FeatureCollection",
+"features": [
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [177.01446533203125, -38.826469324945144]
+},
+"properties": {
+"title": "Lake Waikaremoana",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [175.51071166992188,
+-39.33190746834003]
+},
+"properties": {
+"title": "Tongariro Northern Circuit ",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [175.16464233398438,
+-39.60674622224147]
+},
+"properties": {
+"title": "Whanganui Journey",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [173.04943084716797,
+-40.87250697778841]
+},
+"properties": {
+"title": "Abel Tasman Coast Track",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [ 172.1454620361328,
+-40.948010244038485]
+},
+"properties": {
+"title": "Heaphy Track",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [ 168.17218780517578,
+-44.75746105408348]
+},
+"properties": {
+"title": "Routeburn Track",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [ 167.78217315673828,
+-44.79024168327303]
+},
+"properties": {
+"title": "Milford Track",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [ 167.58562088012695,
+-45.4797531098601]
+},
+"properties": {
+"title": "Kepler Track",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [ 168.06077957153317, -46.86459253930068]
+},
+"properties": {
+"title": "Rakiura Track",
+"icon": "star"
+}
+}, {
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [ 175.517578125, -39.304549870145806]
+},
+"properties": {
+"title": "Round the mountain track",
+"icon": "star"
+}
+}, ]
+}
+});
+mapidpart2.addLayer({
+"id": "points",
+"type": "symbol",
+"source": "points",
+"layout": {
+"icon-image": "{icon}-15",
+"icon-ignore-placement":true,
+"text-field": "{title}",
+"text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+"text-size":10,
+"text-offset": [0, 0.6],
+"text-anchor": "top"
+}
+});
+});
+mapidpart2.on('click',function(e){
+var features = mapidpart2.queryRenderedFeatures(e.point,{layers:['points'] });
+if (features.length) {
+mapidpart2.flyTo({center: features[0].geometry.coordinates, zoom:10});
+}
+});
+mapidpart2.on("mousemove",function(e){
+var features=mapidpart2.queryRenderedFeatures(e.point,{layers: ['points'] });
+mapidpart2.getCanvas().style.cursor = (features.length) ? 'pointer': '';
+});
+mapidpart2.setLayerZoomRange("greatwalks-ao8gqx", 10, 22);
+</script>
 </td>
 </tr>
 </tbody>
