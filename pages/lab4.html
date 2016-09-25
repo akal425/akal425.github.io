@@ -141,8 +141,7 @@ return this._div;
 };
 
 info.update = function (props) {
-this._div.innerHTML = '<h4> Fire incidents in Auckland: <br/> From Jan 2013 to June 2016</h4>' + (props ?
-+ props.Hexabinjson + ' - Please ignore this text <br/>' + '<b>' + props.PNTCNT +' Fire incidents ' + '</b>': '<b> Hover over the Hexabin to see <br/> The No. of Fire Incident </b>' );
+this._div.innerHTML = '<h4> Fire incidents in Auckland: <br/> From Jan 2013 to June 2016</h4>' + '<b>' +(props ? + props.PNTCNT +' Fire incidents ' + '</b>': '<b> Hover over the Hexabin to see <br/> The No. of Fire Incident </b>' );
 };
 
 info.addTo(map);
