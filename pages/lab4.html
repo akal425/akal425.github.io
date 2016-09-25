@@ -59,27 +59,33 @@ University of Auckland</span></big></big></td>
 <span style="font-family: Verdana;">This is Abhijeet Kale, the map below shows the "Structural Fire Incident" that happened
 in Auckland from January 2013 to June 2016</span><br>
 <br>
-<div id="mapidpart4" style="width: 98%; height: 650px;"></div>
-<script type="text/javascript" src="HexabinJSon.js"></script>
+<div id="map" style="width: 98%; height: 650px;"></div>
+<script type="text/javascript" src="../js/HexabinJSon.js"></script>
+
 <script>
-var mapidpart4 = L.map('mapidpart4').setView([-36.918706924057503, 174.846799820252699],10);
+
+var map = L.map('map').setView([-36.918706924057503, 174.846799820252699],10);
+
 L.tileLayer('http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
 maxZoom: 20, attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>,' + '&copy; Fire Data New Zealand 2016 | &copy; <a href="http://www.fire.org.nz/index.html">New Zealand Fire Department</a>',
 id: 'mapbox.streets'
-}).addTo(mapidpart4);
-L.geoJson([Hexabinjson]).addTo(mapidpart4);
+}).addTo(map);
+
+L.geoJson([Hexabinjson]).addTo(map);
+
 function getColor(d)
 {
-return d > 60 ? '#800026' :
-d > 50 ? '#BD0026' :
-d > 40 ? '#E31A1C' :
-d > 30 ? '#FC4E2A' :
-d > 20 ? '#FD8D3C' :
-d > 10 ? '#FEB24C' :
-d > 0.99 ? '#FED976' :
-'#FFEDA0';
-};
-L.geoJson([Hexabinjson]).addTo(mapidpart4);
+return  d > 60 ? '#800026' :
+		d > 50 ? '#BD0026' :
+		d > 40 ? '#E31A1C' :
+		d > 30 ? '#FC4E2A' :
+		d > 20 ? '#FD8D3C' :
+		d > 10 ? '#FEB24C' :
+		d > 0.99 ? '#FED976' :
+		'#FFEDA0';
+}
+L.geoJson([Hexabinjson]).addTo(map);
+
 function style(feature) {
 return {
 fillColor: getColor(feature.properties.PNTCNT),
@@ -90,8 +96,10 @@ dashArray: '0',
 fillOpacity: 0.7
 };
 }
-L.geoJson(Hexabinjson, {style: style}).addTo(mapidpart4);
-var geojson;
+
+L.geoJson(Hexabinjson, {style: style}).addTo(map);
+
+var geojson; 
 function highlightFeature(e) {
 var layer = e.target;
 layer.setStyle({
@@ -100,45 +108,54 @@ color: '#666',
 dashArray: '',
 fillOpacity: 0.7
 });
+
 if (!L.Browser.ie && !L.Browser.firefox && !L.Browser.edge) {
 layer.bringToFront();
 }
-// added a code here info.update(layer.feature.properties);
+
+info.update(layer.feature.properties);
 }
 function resetHighlight(e) {
 geojson.resetStyle(e.target);
-//added code here
+
 info.update();
 }
-geojson =L.geoJson(Hexabinjson,{style:style}).addTo(mapidpart4);
+
+geojson =L.geoJson(Hexabinjson,{style:style}).addTo(map);
+
+
 function onEachFeature(feature, layer) {
 layer.on({
 mouseover: highlightFeature,
 mouseout: resetHighlight,
 });
 }
-geojson = L.geoJson(Hexabinjson, {
-style: style,
-onEachFeature: onEachFeature
-}).addTo(mapidpart4);
+
+geojson = L.geoJson(Hexabinjson, { style: style, onEachFeature: onEachFeature }).addTo(map);
+
 var info = L.control();
-info.onAdd = function (mapidpart4) {
+info.onAdd = function (map) {
 this._div = L.DomUtil.create('div', 'info');
 this.update();
 return this._div;
 };
+
 info.update = function (props) {
 this._div.innerHTML = '<h4> Fire incidents in Auckland: <br/> From Jan 2013 to June 2016</h4>' + (props ?
 + props.Hexabinjson + ' - Please ignore this text <br/>' + '<b>' + props.PNTCNT +' Fire incidents ' + '</b>': '<b> Hover over the Hexabin to see <br/> The No. of Fire Incident </b>' );
 };
-info.addTo(mapidpart4);
+
+info.addTo(map);
+
+
 var legend = L.control({position: 'bottomright'});
-legend.onAdd = function (mapidpart4) {
+legend.onAdd = function (map) {
 var div = L.DomUtil.create('div', 'info legend'),
 grades = [0, 10, 20, 30, 40, 50, 60,70],
 key_labels = ["No Fire Incident","0-10 Fire Incident","10-20 Fire Incident","20-30 Fire Incident","30-40 Fire Incident","40-50 Fire Incident","50-60 Fire Incident","60+ Fire Incident"],
 labels = ["<b> Fire Incident </b><br/>"],
 from, to;
+
 for (var i = 0; i < grades.length; i++) {
 from = grades[i];
 to = grades [i+1];
@@ -148,6 +165,6 @@ labels.push(
 div.innerHTML = labels.join('<br>');
 return div;
 };
-legend.addTo(mapidpart4);
+legend.addTo(map);
 </script>
 </body></html>
