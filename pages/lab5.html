@@ -1,12 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html><head>
-<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>Akal425 - Abhijeet Kale</title>
+<!DOCTYPE html>
+<html><head><title>Pizza and All Black Tweets in NZ</title>
 
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css">
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="http://npmcdn.com/leaflet@0.7.7/dist/leaflet.css">
+<script src="http://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+<style> .info {
+padding: 6px 8px;
+font: 12px/14px Verdana, Helvetica, sans-serif;
+background: white;
+background: rgba(255,255,255,0.8);
+box-shadow: 0 0 15px rgba(0,0,0,0.2);
+border-radius: 5px;
+}
+.info h4 {
+margin: 0 0 5px;
+color: #777;
+}
+.legend {
+line-height: 18px;
+color: #555;
+}
+.legend i {
+width: 18px;
+height: 18px;
+float: left;
+margin-right: 8px;
+opacity: 0.7;
+}
+</style>
 </head>
+
+
 <body>
-<table style="text-align: left; width: 1300px; height: 32px; color: rgb(102, 102, 204);" border="0" cellpadding="2" cellspacing="2">
+<table style="text-align: left; width: 100%; height: 32px; color: rgb(102, 102, 204);" border="0" cellpadding="2" cellspacing="2">
 <tbody>
 <tr>
 <td><big style="font-family: Calibri;"><big><span style="font-weight: bold;">Geog 771</span></big></big><br style="font-weight: bold;">
@@ -17,32 +44,71 @@ University of Auckland</span></big></big></td>
 </tbody>
 </table>
 <br>
-<table style="text-align: left; width: 1300px; height: 52px;" border="0" cellpadding="2" cellspacing="2">
+<table style="text-align: left; width: 100%; height: 52px;" border="0" cellpadding="2" cellspacing="2">
 <tbody>
 <tr>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="../index.html">Home</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="./lab2.html">Lab 2</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./lab3.html">Lab 3</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./lab4.html">Lab 4</span></td>
-<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="lab5.html">Lab 5</span></td>
-</tr>
-</tbody>
-</table>
-<br><big><span style="font-family: Calibri;">This is Abhijeet Kale, and
-I am going to use this simple website to post my web map outputs for
-Geog 771 done at The University of Auckland. </span><br style="font-family: Calibri;"><span style="font-family: Calibri;">This page is under construction. </span></big><br><br>
-<table style="text-align: left; width: 1300px; height: 609px;" border="0" cellpadding="2" cellspacing="2">
-<tbody>
-<tr>
-<td>
-<br>
-<p style="height: 8px; font-family: Tahoma;">This page is under construction.</p>
-<p style="height: 8px;"></p>
-</td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="../index.html">Home</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-family: Calibri; font-weight: bold;"><a href="./lab2.html">Lab 2</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./lab3.html">Lab 3</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="./lab4.html">Lab 4</a></span></td>
+<td style="text-align: center; background-color: rgb(255, 153, 255);"><span style="font-weight: bold; font-family: Calibri;"><a href="lab5.html">Lab 5</a></span></td>
 </tr>
 </tbody>
 </table>
 <br>
+<span style="font-family: Verdana;">This is Abhijeet Kale, the map below shows the Geocoded tweets about Pizza and All Black in New Zealand</span><br>
 <br>
-<br>
+<div id="map" style="width: 100%; height: 650px;"></div>
+<script type="text/javascript" src="../js/TweetLQ.js"></script>
+
+<script>
+
+var map = L.map('map').setView([-41.608706924057503, 172.596799820252699],5);
+
+L.tileLayer('http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+maxZoom: 20, attribution: '&copy; Openstreetmap | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>,' + '&copy; Dolly Project by Prof Matt | &copy; <a href="http://www.floatingsheep.org/p/dolly.html">@mattzook and Floating Sheep</a>',
+id: 'mapbox.streets'
+}).addTo(map);
+
+
+function getColor(d) {
+  return  d > 1.101 ? '#FF0000': 
+          d > 0.901 ? '#FFFF00': 
+         // d > 0.001 ? '#FFFF00':
+          d > 0.00 ? '#000000':
+                    'transparent';
+ }
+
+function style(feature) {
+return {
+fillColor: getColor(feature.properties.TweetsLQ),
+weight: 1,
+opacity: 1,
+color: 'white',
+dashArray: '0',
+fillOpacity: 0.7
+};
+}
+
+L.geoJson(TweetsLQ,{style: style}).addTo(map);
+
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+var div = L.DomUtil.create('div', 'info legend'),
+grades = [0, 0.901, 1.101],
+key_labels = ["More All Blacks Tweets","Equal Pizza and All Blacks Tweets","More Pizza Tweets"],
+labels = ["<b> All Blacks and Pizza Tweets in NZ </b><br/>"],
+from, to;
+
+for (var i = 0; i < grades.length; i++) {
+from = grades[i];
+to = grades [i+1];
+labels.push(
+'<i style = "background:' + getColor(from + 0.001) +'"></i>'+ key_labels[i]);
+}
+div.innerHTML = labels.join('<br>');
+return div;
+};
+legend.addTo(map);
+</script>
 </body></html>
